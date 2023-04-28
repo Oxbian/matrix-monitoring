@@ -7,8 +7,13 @@ findtime = 300
 maxretry = 3
 banaction = iptables-multiport
 backend = systemd
-# Action to ban using IP tables and send matrix notification
 
+# Action to ban using IP tables and send matrix notification
+action_tg = %(banaction)s[name=%(__name__)s, bantime="%(bantime)s", port="%(port)s", protocol="%(protocol)s", chain>
+            matrix[name=%(__name__)s]
+
+# The simplest action to take: ban only
+action = %(action_tg)s
 
 # SSH jail
 [sshd]
