@@ -32,7 +32,7 @@ Thanks to those commands you will be able to get the last update without losing 
 
 ## Logwatch
 
-First you need to configure matrix-sender, I recommand you to check the repo [matrix-sender](https://github.com/Oxbian/matrix-sender).  
+First you need to configure matrix-sender, I recommend you to check the repo [matrix-sender](https://github.com/Oxbian/matrix-sender).  
 
 After that you need to edit `logwatch.sh` to add the `matrix.sh` absolute path.  
 
@@ -60,6 +60,23 @@ After that you will need to add those lines in your pam configuration `/etc/pam.
 #Send a message on SSH connection
 session optional pam_exec.so seteuid /etc/ssh/login-notify.sh
 ```
+
+## Fail2Ban
+
+First you need to configure matrix-sender, I recommend you to check the repo [matrix-sender](https://github.com/Oxbian/matrix-sender).  
+
+After that you need to edit `Fail2Ban/matrix.conf` and change the absolute path to your `matrix.sh` script.
+
+Once all this is done, you can copy the `jail.local` in your `jail.d` folder and `matrix.conf` in the `action.d` folder.
+
+```bash
+sudo ln -sf "$(pwd)/Fail2Ban/jail.local" /etc/fail2ban/jail.d/jail.local
+sudo ln -sf "$(pwd)/Fail2Ban/matrix.conf" /etc/fail2ban/action.d/matrix.conf
+```
+
+After that just restart the fail2ban service and check for errors, and if you have some, fix them.
+
+You will probably need to edit the jail.local script to your liking.
 
 ## Contributing
 

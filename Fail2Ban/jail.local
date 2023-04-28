@@ -1,0 +1,39 @@
+# Sample jail.local config
+[DEFAULT]
+
+ignoreip = 127.0.0.1/24
+bantime = 86400
+findtime = 300
+maxretry = 3
+banaction = iptables-multiport
+backend = systemd
+# Action to ban using IP tables and send matrix notification
+
+
+# SSH jail
+[sshd]
+
+enabled = true
+port    = 22
+logpath = /var/log/auth.log
+backend = %(sshd_backend)s
+filter = sshd
+
+
+# Apache2 auth jail
+[apache-auth]
+
+enabled = true
+port     = http,https
+logpath  = /var/log/apache2/error.log
+filter = apache-auth
+maxretry = 3
+
+# Apache2 pass jail
+[apache-pass]
+
+enabled = true
+port    = http,https
+logpath  = /var/log/apache2/access.log
+filter = apache-pass
+maxretry = 3
